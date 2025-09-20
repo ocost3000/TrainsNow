@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+
+  transiter:
+    image: jamespfennell/transiter:1.0.0
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:8081:8081"
+      - "127.0.0.1:8082:8082"
+      - "127.0.0.1:8083:8083"
+    restart: always
+    command:
+      - server
+      - --log-level
+      - debug
+      - --postgres-connection-string
+      - "postgres://transiter:transiter@postgres:5432/transiter"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgis/postgis:14-3.4
+    environment:
+      - POSTGRES_USER=transiter
+      - POSTGRES_PASSWORD=transiter
+      - POSTGRES_DB=transiter
+    volumes:
+      # Persist the Postgres data outside the container to that it persists across restarts.
+      - "${HOME}/transiter-data:/var/lib/postgresql/data"
+    restart: always

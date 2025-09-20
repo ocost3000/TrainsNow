@@ -1,0 +1,13 @@
+
+
+###
+GET http://localhost:8080/systems
+Content-Type: application/json
+
+###
+GET http://localhost:8080/systems/us-ca-caltrain/routes
+Content-Type: application/json
+
+###
+GET http://localhost:8080/systems/us-ny-subway/routes/1
+Content-Type: application/json
