@@ -1,3 +1,9 @@
+# TrainsNow
+
+## References
+- [Wikimedia Commons](https://commons.wikimedia.org/w/index.php?search=mta+icon&title=Special%3AMediaSearch&type=image&filemime=svg)
+- [MTA Design System](https://uploads-ssl.webflow.com/6143f8d9f00e3d76c225b727/616f3030dc6a9e6bc23d7cc0_03.%20The%20MTA%20Group%20\(Copy\)%201_compressed.pdf)
+
 This is a Kotlin Multiplatform project targeting Android, Web.
 
 * [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
