@@ -13,8 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.ocost.trainsnow.shared.icon.CircleIcon
-import com.ocost.trainsnow.shared.icon.LineIconSpec
+import com.ocost.trainsnow.shared.icon.LineIcon
+import com.ocost.trainsnow.shared.icon.LineIconShape
+import com.ocost.trainsnow.shared.icon.LineIconSize
 
 @Composable
 fun SubwayScreen(
@@ -39,12 +40,40 @@ fun SubwayScreen(
 
         // Demo: Programmatic line icons of varying sizes (performance-friendly)
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            CircleIcon(LineIconSpec("A", background = Color(0xFF0039A6)), size = 20.dp)
-            CircleIcon(LineIconSpec("B", background = Color(0xFFFCCB00)), size = 28.dp)
-            CircleIcon(LineIconSpec("Q", background = Color(0xFFFCCC0A)), size = 36.dp)
-            CircleIcon(LineIconSpec("7", background = Color(0xFFB933AD)), size = 48.dp)
+            LineIcon(
+                character = "A",
+                size = LineIconSize.Large,
+                shape = LineIconShape.Circle,
+                background = Color(0xFF0039A6),
+                foreground = Color.White,
+                contentDescription = "A line"
+            )
+            LineIcon(
+                character = "N",
+                size = LineIconSize.Large,
+                shape = LineIconShape.Circle,
+                background = Color(0xFFFCCB00),
+                foreground = Color.White,
+                contentDescription = "B line"
+            )
+            LineIcon(
+                character = "Q",
+                size = LineIconSize.Large,
+                shape = LineIconShape.Circle,
+                background = Color(0xFFFCCC0A),
+                foreground = Color.White,
+                contentDescription = "Q line"
+            )
+            LineIcon(
+                character = "7",
+                size = LineIconSize.Large,
+                shape = LineIconShape.Circle,
+                background = Color(0xFFB933AD),
+                foreground = Color.White,
+                contentDescription = "7 line"
+            )
         }
-        Text("CircleLetterIcon draws a circle + centered letter; scales cheaply without assets.")
+        Text("LineIcon draws a circle + centered letter; scales cheaply without assets.")
 
         Button(onClick = { onPush("Detail ${stack.size}") }) {
             Text("Push detail screen")
