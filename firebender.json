@@ -1,0 +1,95 @@
+{
+  "rules": [
+    "Project name: TrainsNow - This is a Kotlin Multiplatform app that provides realtime updates for transit system routes",
+    "Architecture: Use Compose Multiplatform with composeApp as the primary module for shared UI/business logic",
+    "Multiplatform targets: Current targets are Android and Web (Wasm and JS). Keep platform boundaries clean to allow adding more targets later (iOS, desktop, wearables)",
+    "Region support: The app compiles into multiple region-specific variants for NYC (MTA/NYCTA), San Francisco Bay Area (BART, Caltrain, Muni, SamTrans, AC Transit), Boston (MBTA), and Chicago (CTA)",
+    "Asynchronous programming: Use Kotlin coroutines and Flow for all asynchronous operations and reactive data streams. Never use runBlocking, including in tests. Prefer coroutine scopes, suspend functions, and test utilities like runTest",
+    "Concurrency: Prefer structured concurrency with clearly scoped coroutine contexts. Avoid global scope",
+    "Code style: Follow idiomatic Kotlin. Keep functions small and testable. Prefer immutable data structures and pure functions where practical",
+    "Static analysis: Use Detekt with ktlint formatting rules via detekt-formatting plugin. All rules should be sourced from the version catalog",
+    "Dependencies: Align all new dependencies with gradle/libs.versions.toml (version catalog)",
+    "Keep changes minimal and targeted to the issue at hand",
+    {
+      "filePathMatches": "**/src/commonMain/**/*.kt",
+      "rules": [
+        "This is shared cross-platform Kotlin code - ensure compatibility across all target platforms",
+        "Use Compose UI, domain logic, and shared business logic here",
+        "Avoid platform-specific APIs - use expect/actual declarations if needed"
+      ]
+    },
+    {
+      "filePathMatches": "**/src/androidMain/**/*.kt",
+      "rules": [
+        "Android-specific code and resources only",
+        "Use Android-specific APIs and resources here"
+      ]
+    },
+    {
+      "filePathMatches": "**/src/webMain/**/*.kt",
+      "rules": [
+        "Web-specific entry point and resources",
+        "Use web-specific APIs carefully"
+      ]
+    },
+    {
+      "filePathMatches": "**/src/jsMain/**/*.kt",
+      "rules": [
+        "Platform-specific Kotlin for JS web target",
+        "Ensure broader browser compatibility"
+      ]
+    },
+    {
+      "filePathMatches": "**/src/wasmJsMain/**/*.kt",
+      "rules": [
+        "Platform-specific Kotlin for Wasm web target",
+        "Optimized for modern browsers with WebAssembly support"
+      ]
+    },
+    {
+      "filePathMatches": "**/src/commonTest/**/*.kt",
+      "rules": [
+        "Shared tests for cross-platform code",
+        "Use kotlinx.coroutines test utilities for coroutine code",
+        "Never use runBlocking in tests - prefer runTest and other coroutine test utilities"
+      ]
+    },
+    {
+      "filePathMatches": "**/build.gradle.kts",
+      "rules": [
+        "Use version catalog (gradle/libs.versions.toml) for all dependency versions",
+        "Maintain clean platform boundaries in build configuration",
+        "Include detekt with detekt-formatting plugin for static analysis"
+      ]
+    },
+    {
+      "filePathMatches": "gradle/libs.versions.toml",
+      "rules": [
+        "Central location for all dependency and plugin versions",
+        "Keep versions organized and up to date",
+        "Ensure compatibility across multiplatform targets"
+      ]
+    },
+    {
+      "filePathMatches": "**/api/transiter/**",
+      "rules": [
+        "API-related resources like docker-compose and HTTP request examples",
+        "Keep API configurations organized and documented"
+      ]
+    },
+    "Region-specific logic: If adding new region-specific logic, isolate it behind interfaces in commonMain with platform-specific implementations as needed",
+    "Future compatibility: Code should be organized to support potential future Wear OS and watchOS experiences, even though watch targets may not be available in Kotlin Multiplatform yet",
+    "Testing: Use structured testing with clear scopes. Prefer suspend functions over blocking operations"
+  ],
+  "ignore": [
+    "**/build/**",
+    "**/.gradle/**",
+    "**/gradle/wrapper/**",
+    "**/.idea/**",
+    "**/*.iml",
+    "**/local.properties",
+    "**/*.log",
+    "**/.DS_Store",
+    "**/node_modules/**"
+  ]
+}
