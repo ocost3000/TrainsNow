@@ -1,4 +1,4 @@
-package com.ocost.trainsnow.shared.icon
+package com.ocost.trainsnow.shared
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +26,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+private const val FontSizeRatio = 0.56f
 enum class LineIconShape {
     Circle,
     Diamond,
@@ -46,7 +47,6 @@ enum class LineIconSize(val dp: Dp) {
     Large(48.dp)
 }
 
-/** Data describing a subway-like line icon. */
 data class LineIconSpec(
     val letter: String,
     val background: Color,
@@ -80,9 +80,9 @@ fun LineIcon(
     character: String,
     size: LineIconSize,
     shape: LineIconShape,
-    background: Color,
-    foreground: Color,
     contentDescription: String,
+    background: Color,
+    foreground: Color = Color.White,
     modifier: Modifier = Modifier
 ) {
     val spec = LineIconSpec(
@@ -91,7 +91,9 @@ fun LineIcon(
         foreground,
         contentDescription,
     )
-    val fontSize: TextUnit = remember(size) { (size.dp.value * 0.56f).sp }
+    val fontSize: TextUnit = remember(size) {
+        (size.dp.value * FontSizeRatio).sp
+    }
 
     Box(
         modifier = modifier
@@ -121,7 +123,7 @@ fun LineIcon(
 
 @Preview
 @Composable
-private fun LineIcon_FullScreen_Preview() {
+private fun LineIconScreenPreview() {
     MaterialTheme {
         Box(
             modifier = Modifier
@@ -137,7 +139,7 @@ private fun LineIcon_FullScreen_Preview() {
                         character = "A",
                         shape = LineIconShape.Circle,
                         size = LineIconSize.Large,
-                        background = Color(0xFF0039A6),
+                        background = Color(color = 0xFF0039A6),
                         foreground = Color.White,
                         contentDescription = "A line"
                     )
@@ -146,7 +148,7 @@ private fun LineIcon_FullScreen_Preview() {
                         character = "B",
                         shape = LineIconShape.RoundedSquare,
                         size = LineIconSize.Large,
-                        background = Color(0xFF0099CC),
+                        background = Color(color = 0xFF0099CC),
                         foreground = Color.White,
                         contentDescription = "B line"
                     )
@@ -155,7 +157,7 @@ private fun LineIcon_FullScreen_Preview() {
                         character = "6",
                         shape = LineIconShape.Diamond,
                         size = LineIconSize.Large,
-                        background = Color(0xFF00933C),
+                        background = Color(color = 0xFF00933C),
                         foreground = Color.White,
                         contentDescription = "6 line"
                     )
@@ -168,7 +170,7 @@ private fun LineIcon_FullScreen_Preview() {
                         character = "A",
                         shape = LineIconShape.Circle,
                         size = LineIconSize.Small,
-                        background = Color(0xFF0039A6),
+                        background = Color(color = 0xFF0039A6),
                         foreground = Color.White,
                         contentDescription = "A line"
                     )
@@ -177,7 +179,7 @@ private fun LineIcon_FullScreen_Preview() {
                         character = "B",
                         shape = LineIconShape.RoundedSquare,
                         size = LineIconSize.Small,
-                        background = Color(0xFF0099CC),
+                        background = Color(color = 0xFF0099CC),
                         foreground = Color.White,
                         contentDescription = "B line"
                     )
@@ -186,7 +188,7 @@ private fun LineIcon_FullScreen_Preview() {
                         character = "6",
                         shape = LineIconShape.Diamond,
                         size = LineIconSize.Small,
-                        background = Color(0xFF00933C),
+                        background = Color(color = 0xFF00933C),
                         foreground = Color.White,
                         contentDescription = "6 line"
                     )
@@ -204,7 +206,7 @@ private fun CircleIcon_Preview() {
             character = "A",
             shape = LineIconShape.Circle,
             size = LineIconSize.Large,
-            background = Color(0xFF0039A6),
+            background = Color(color = 0xFF0039A6),
             foreground = Color.White,
             contentDescription = "A line"
         )
@@ -213,13 +215,13 @@ private fun CircleIcon_Preview() {
 
 @Preview
 @Composable
-private fun RoundedSquareIcon_Preview() {
+private fun RoundedSquareIconPreview() {
     MaterialTheme {
         LineIcon(
             character = "B",
             shape = LineIconShape.RoundedSquare,
             size = LineIconSize.Large,
-            background = Color(0xFF0099CC),
+            background = Color(color = 0xFF0099CC),
             foreground = Color.White,
             contentDescription = "B line"
         )
@@ -228,13 +230,13 @@ private fun RoundedSquareIcon_Preview() {
 
 @Preview
 @Composable
-private fun DiamondIcon_Preview() {
+private fun DiamondIconPreview() {
     MaterialTheme {
         LineIcon(
             character = "F",
             shape = LineIconShape.Diamond,
             size = LineIconSize.Large,
-            background = Color(0xFFD52B1E),
+            background = Color(color = 0xFFD52B1E),
             foreground = Color.White,
             contentDescription = "F line"
         )
@@ -249,7 +251,7 @@ private fun CircleIcon_Small_Preview() {
             character = "A",
             shape = LineIconShape.Circle,
             size = LineIconSize.Small,
-            background = Color(0xFF0039A6),
+            background = Color(color = 0xFF0039A6),
             foreground = Color.White,
             contentDescription = "A line"
         )
@@ -258,13 +260,13 @@ private fun CircleIcon_Small_Preview() {
 
 @Preview
 @Composable
-private fun RoundedSquareIcon_Small_Preview() {
+private fun RoundedSquareIconSmallPreview() {
     MaterialTheme {
         LineIcon(
             character = "B",
             shape = LineIconShape.RoundedSquare,
             size = LineIconSize.Small,
-            background = Color(0xFF0099CC),
+            background = Color(color = 0xFF0099CC),
             foreground = Color.White,
             contentDescription = "B line"
         )
@@ -273,13 +275,13 @@ private fun RoundedSquareIcon_Small_Preview() {
 
 @Preview
 @Composable
-private fun DiamondIcon_Small_Preview() {
+private fun DiamondIconSmallPreview() {
     MaterialTheme {
         LineIcon(
             character = "F",
             shape = LineIconShape.Diamond,
             size = LineIconSize.Small,
-            background = Color(0xFFD52B1E),
+            background = Color(color = 0xFFD52B1E),
             foreground = Color.White,
             contentDescription = "F line"
         )

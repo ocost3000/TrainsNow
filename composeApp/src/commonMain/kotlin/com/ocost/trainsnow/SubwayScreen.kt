@@ -13,9 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.ocost.trainsnow.shared.icon.LineIcon
-import com.ocost.trainsnow.shared.icon.LineIconShape
-import com.ocost.trainsnow.shared.icon.LineIconSize
+import com.ocost.trainsnow.shared.LineIcon
+import com.ocost.trainsnow.shared.LineIconShape
+import com.ocost.trainsnow.shared.LineIconSize
 
 @Composable
 fun SubwayScreen(
@@ -44,7 +44,7 @@ fun SubwayScreen(
                 character = "A",
                 size = LineIconSize.Large,
                 shape = LineIconShape.Circle,
-                background = Color(0xFF0039A6),
+                background = Color(color = 0xFF0062CF),
                 foreground = Color.White,
                 contentDescription = "A line"
             )
@@ -52,7 +52,7 @@ fun SubwayScreen(
                 character = "N",
                 size = LineIconSize.Large,
                 shape = LineIconShape.Circle,
-                background = Color(0xFFFCCB00),
+                background = Color(color = 0xFFF6BC26),
                 foreground = Color.White,
                 contentDescription = "B line"
             )
@@ -60,7 +60,7 @@ fun SubwayScreen(
                 character = "Q",
                 size = LineIconSize.Large,
                 shape = LineIconShape.Circle,
-                background = Color(0xFFFCCC0A),
+                background = Color(color = 0xFFF6BC26),
                 foreground = Color.White,
                 contentDescription = "Q line"
             )
@@ -68,7 +68,7 @@ fun SubwayScreen(
                 character = "7",
                 size = LineIconSize.Large,
                 shape = LineIconShape.Circle,
-                background = Color(0xFFB933AD),
+                background = Color(color = 0xFF9A38A1),
                 foreground = Color.White,
                 contentDescription = "7 line"
             )
