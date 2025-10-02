@@ -1,5 +1,6 @@
 package com.ocost.trainsnow.shared
 
+import TextGyreHerosTypography
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -95,29 +96,31 @@ fun LineIcon(
         (size.dp.value * FontSizeRatio).sp
     }
 
-    Box(
-        modifier = modifier
-            .size(size.dp)
-            .background(
-                color = spec.background,
-                shape = when (shape) {
-                    LineIconShape.Circle -> CircleShape
-                    LineIconShape.Diamond -> DiamondShape
-                    LineIconShape.RoundedSquare -> RoundedCornerShape(percent = 20)
-                }
+    MaterialTheme(typography = TextGyreHerosTypography()) {
+        Box(
+            modifier = modifier
+                .size(size.dp)
+                .background(
+                    color = spec.background,
+                    shape = when (shape) {
+                        LineIconShape.Circle -> CircleShape
+                        LineIconShape.Diamond -> DiamondShape
+                        LineIconShape.RoundedSquare -> RoundedCornerShape(percent = 20)
+                    }
+                )
+                .semantics { this.contentDescription = contentDescription },
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = spec.letter,
+                color = spec.foreground,
+                style = MaterialTheme.typography.titleMedium,
+                fontSize = fontSize,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
             )
-            .semantics { this.contentDescription = contentDescription },
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = spec.letter,
-            color = spec.foreground,
-            style = MaterialTheme.typography.titleMedium,
-            fontSize = fontSize,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-        )
+        }
     }
 }
 

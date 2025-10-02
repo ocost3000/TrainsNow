@@ -53,7 +53,7 @@ fun SubwayScreen(
                 size = LineIconSize.Large,
                 shape = LineIconShape.Circle,
                 background = Color(color = 0xFFF6BC26),
-                foreground = Color.White,
+                foreground = Color.Black,
                 contentDescription = "B line"
             )
             LineIcon(
@@ -61,7 +61,7 @@ fun SubwayScreen(
                 size = LineIconSize.Large,
                 shape = LineIconShape.Circle,
                 background = Color(color = 0xFFF6BC26),
-                foreground = Color.White,
+                foreground = Color.Black,
                 contentDescription = "Q line"
             )
             LineIcon(
