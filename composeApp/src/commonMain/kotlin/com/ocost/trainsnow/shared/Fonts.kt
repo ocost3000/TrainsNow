@@ -8,7 +8,8 @@ import trainsnow.composeapp.generated.resources.Res
 import trainsnow.composeapp.generated.resources.texgyreheros_bold
 import trainsnow.composeapp.generated.resources.texgyreheros_regular
 
-// MTA Font
+// MTA line icon Font
+// only need bold for now
 @Composable
 internal fun TextGyreHerosTypography(): Typography {
     val textGyreHerosFont = FontFamily(
