@@ -250,7 +250,7 @@ private fun DiamondIconPreview() {
 
 @Preview
 @Composable
-private fun CircleIcon_Small_Preview() {
+private fun CircleIconSmallPreview() {
     MaterialTheme {
         LineIcon(
             character = "A",
