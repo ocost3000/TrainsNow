@@ -1,5 +1,8 @@
 package com.ocost.trainsnow.api
 
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.coroutines.runSuspendCatching
+import com.github.michaelbull.result.mapError
 import com.quicktrain.core.model.data.Agency
 import com.quicktrain.core.model.data.Route
 import com.quicktrain.core.model.data.Stop
@@ -12,7 +15,6 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.appendPathSegments
-import kotlin.Result
 
 /**
  * Transiter API client for accessing transit system data.
@@ -59,9 +61,9 @@ class TransiterApi(
      *
      * @return A list of [System] objects.
      */
-    suspend fun getSystems(): Result<List<System>> = runCatching {
-        client.get("$baseUrl/systems").body()
-    }
+    suspend fun getSystems(): Result<List<System>, ApiError> = runSuspendCatching {
+        client.get("$baseUrl/systems").body<List<System>>()
+    }.mapError { apiExceptionToError(it) }
 
     /**
      * Fetches a transit system by ID.
@@ -69,13 +71,13 @@ class TransiterApi(
      * @param systemId The ID of the system to fetch.
      * @return The [System] object corresponding to the provided ID.
      */
-    suspend fun getSystem(systemId: String): Result<System> = runCatching {
+    suspend fun getSystem(systemId: String): Result<System, ApiError> = runSuspendCatching {
         client.get(baseUrl) {
             url {
                 appendPathSegments("systems", systemId)
             }
-        }.body()
-    }
+        }.body<System>()
+    }.mapError { apiExceptionToError(it) }
 
     // Agencies
     /**
@@ -84,13 +86,13 @@ class TransiterApi(
      * @param systemId The ID of the system to fetch agencies from.
      * @return A list of [Agency] objects.
      */
-    suspend fun getAgencies(systemId: String): Result<List<Agency>> = runCatching {
+    suspend fun getAgencies(systemId: String): Result<List<Agency>, ApiError> = runSuspendCatching {
         client.get(baseUrl) {
             url {
                 appendPathSegments("systems", systemId, "agencies")
             }
-        }.body()
-    }
+        }.body<List<Agency>>()
+    }.mapError { apiExceptionToError(it) }
 
     /**
      * Fetches an agency by ID in a transit system.
@@ -102,13 +104,13 @@ class TransiterApi(
     suspend fun getAgency(
         systemId: String,
         agencyId: String
-    ): Result<Agency> = runCatching {
+    ): Result<Agency, ApiError> = runSuspendCatching {
         client.get(baseUrl) {
             url {
                 appendPathSegments("systems", systemId, "agencies", agencyId)
             }
-        }.body()
-    }
+        }.body<Agency>()
+    }.mapError { apiExceptionToError(it) }
 
     // Stops
     /**
@@ -149,7 +151,7 @@ class TransiterApi(
         maxDistance: Double? = null,
         latitude: Double? = null,
         longitude: Double? = null,
-    ): Result<ListStopsReply> = runCatching {
+    ): Result<ListStopsReply, ApiError> = runSuspendCatching {
         client.get(baseUrl) {
             url {
                 appendPathSegments("systems", systemId, "stops")
@@ -169,8 +171,8 @@ class TransiterApi(
                 latitude?.let { parameter("latitude", it) }
                 longitude?.let { parameter("longitude", it) }
             }
-        }.body()
-    }
+        }.body<ListStopsReply>()
+    }.mapError { apiExceptionToError(it) }
 
     /**
      * Fetches a stop by ID in a transit system.
@@ -190,7 +192,7 @@ class TransiterApi(
         skipServiceMaps: Boolean = false,
         skipAlerts: Boolean = false,
         skipTransfers: Boolean = false
-    ): Result<Stop> = runCatching {
+    ): Result<Stop, ApiError> = runSuspendCatching {
         client.get(baseUrl) {
             url {
                 appendPathSegments("systems", systemId, "stops", stopId)
@@ -199,8 +201,8 @@ class TransiterApi(
                 parameter("skip_alerts", skipAlerts)
                 parameter("skip_transfers", skipTransfers)
             }
-        }.body()
-    }
+        }.body<Stop>()
+    }.mapError { apiExceptionToError(it) }
 
     // Routes
     /**
@@ -217,7 +219,7 @@ class TransiterApi(
         skipEstimatedHeadways: Boolean = false,
         skipServiceMaps: Boolean = false,
         skipAlerts: Boolean = false
-    ): Result<ListRoutesReply> = runCatching {
+    ): Result<ListRoutesReply, ApiError> = runSuspendCatching {
         client.get(baseUrl) {
             url {
                 appendPathSegments("systems", systemId, "routes")
@@ -225,8 +227,8 @@ class TransiterApi(
                 parameter("skip_service_maps", skipServiceMaps)
                 parameter("skip_alerts", skipAlerts)
             }
-        }.body()
-    }
+        }.body<ListRoutesReply>()
+    }.mapError { apiExceptionToError(it) }
 
     /**
      * Fetches a route by ID in a transit system.
@@ -244,7 +246,7 @@ class TransiterApi(
         skipEstimatedHeadways: Boolean = false,
         skipServiceMaps: Boolean = false,
         skipAlerts: Boolean = false
-    ): Result<Route> = runCatching {
+    ): Result<Route, ApiError> = runSuspendCatching {
         client.get(baseUrl) {
             url {
                 appendPathSegments("systems", systemId, "routes", routeId)
@@ -252,122 +254,122 @@ class TransiterApi(
                 parameter("skip_service_maps", skipServiceMaps)
                 parameter("skip_alerts", skipAlerts)
             }
-        }.body()
-    }
+        }.body<Route>()
+    }.mapError { apiExceptionToError(it) }
 
     // Trips
-//    suspend fun getTrips(systemId: String): Result<Unit> = runCatching {
+//    suspend fun getTrips(systemId: String): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "trips")
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    suspend fun getTrip(
 //        systemId: String,
 //        tripId: String
-//    ): Result<Unit> = runCatching {
+//    ): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "trips", tripId)
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    // Alerts
-//    suspend fun getAlerts(systemId: String): Result<Unit> = runCatching {
+//    suspend fun getAlerts(systemId: String): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "alerts")
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    suspend fun getAlert(
 //        systemId: String,
 //        alertId: String
-//    ): Result<Unit> = runCatching {
+//    ): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "alerts", alertId)
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    // Transfers
-//    suspend fun getTransfers(systemId: String): Result<Unit> = runCatching {
+//    suspend fun getTransfers(systemId: String): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "transfers")
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    suspend fun getTransfer(
 //        systemId: String,
 //        transferId: String
-//    ): Result<Unit> = runCatching {
+//    ): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "transfers", transferId)
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    // Feeds
-//    suspend fun getFeeds(systemId: String): Result<Unit> = runCatching {
+//    suspend fun getFeeds(systemId: String): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "feeds")
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    suspend fun getFeed(
 //        systemId: String,
 //        feedId: String
-//    ): Result<Unit> = runCatching {
+//    ): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "feeds", feedId)
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    // Vehicles
-//    suspend fun getVehicles(systemId: String): Result<Unit> = runCatching {
+//    suspend fun getVehicles(systemId: String): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "vehicles")
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    suspend fun getVehicle(
 //        systemId: String,
 //        vehicleId: String
-//    ): Result<Unit> = runCatching {
+//    ): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "vehicles", vehicleId)
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    // Shapes
-//    suspend fun getShapes(systemId: String): Result<Unit> = runCatching {
+//    suspend fun getShapes(systemId: String): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "shapes")
 //            }
 //        }.body()
-//    }
+//    }.mapError { apiExceptionToError(it) }
 //
 //    suspend fun getShape(
 //        systemId: String,
 //        shapeId: String
-//    ): Result<Unit> = runCatching {
+//    ): Result<Unit, ApiError> = runSuspendCatching {
 //        client.get(baseUrl) {
 //            url {
 //                appendPathSegments("systems", systemId, "shapes", shapeId)
