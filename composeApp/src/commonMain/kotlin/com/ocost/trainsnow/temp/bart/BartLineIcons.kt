@@ -29,139 +29,139 @@ object BartLineIcons {
     }
 
     object BlueLine {
-        val line = "B"
-        val background = Color(0xFF00AEF0)
-        val contentDescription = "Blue Line"
+        const val LINE = "B"
+        val background = Color(color = 0xFF00AEF0)
+        const val CONTENT_DESC = "Blue Line"
 
         @Composable
         fun Large() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Large,
                 background = background,
                 foreground = Color.White,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
 
         @Composable
         fun Small() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Small,
                 background = background,
                 foreground = Color.White,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
     }
 
     object GreenLine {
-        val line = "G"
+        const val LINE = "G"
         val background = Color(0xFF4DB848)
-        val contentDescription = "Green Line"
+        const val CONTENT_DESC = "Green Line"
 
         @Composable
         fun Large() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Large,
                 background = background,
                 foreground = Color.White,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
 
         @Composable
         fun Small() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Small,
                 background = background,
                 foreground = Color.White,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
     }
 
     object OrangeLine {
-        val line = "O"
+        const val LINE = "O"
         val background = Color(0xFFFAA61A)
-        val contentDescription = "Orange Line"
+        const val CONTENT_DESC = "Orange Line"
 
         @Composable
         fun Large() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Large,
                 background = background,
                 foreground = Color.Black,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
 
         @Composable
         fun Small() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Small,
                 background = background,
                 foreground = Color.Black,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
     }
 
     object RedLine {
-        val line = "R"
+        const val LINE = "R"
         val background = Color(0xFFED1C24)
-        val contentDescription = "Red Line"
+        const val CONTENT_DESC = "Red Line"
         @Composable
         fun Large() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Large,
                 background = background,
                 foreground = Color.White,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
         @Composable
         fun Small() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Small,
                 background = background,
                 foreground = Color.White,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
     }
 
     object YellowLine {
-        val line = "Y"
+        const val LINE = "Y"
         val background = Color(0xFFFFE800)
-        val contentDescription = "Yellow Line"
+        const val CONTENT_DESC = "Yellow Line"
 
         @Composable
         fun Large() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Large,
                 background = background,
                 foreground = Color.Black,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
 
         @Composable
         fun Small() {
             BartLineIconFactory(
-                line = line,
+                line = LINE,
                 size = LineIconSize.Small,
                 background = background,
                 foreground = Color.Black,
-                contentDescription = contentDescription,
+                contentDescription = CONTENT_DESC,
             )
         }
     }
