@@ -584,8 +584,10 @@ style:
         value: 'TODO:'
     allowedPatterns: ''
   ForbiddenImport:
-    active: false
-    imports: []
+    active: true
+    imports:
+      - reason: 'Use michael-bull Result or custom result types instead. kotlin.Result is designed for internal use and has limitations with exception handling in multiplatform contexts.'
+        value: 'kotlin.Result'
     forbiddenPatterns: ''
   ForbiddenMethodCall:
     active: false
