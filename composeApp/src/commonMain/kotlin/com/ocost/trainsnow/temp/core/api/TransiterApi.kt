@@ -1,4 +1,4 @@
-package com.ocost.trainsnow.api
+package com.ocost.trainsnow.temp.core.api
 
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.runSuspendCatching
@@ -16,40 +16,6 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.appendPathSegments
 
-/**
- * Transiter API client for accessing transit system data.
- *
- * This class provides a Ktor-based HTTP client for interacting with Transiter API instances.
- * All methods return [Result] types for safe error handling.
- *
- * Documentation: https://docs.transiter.dev/api/public_endpoints/
- *
- * ## Usage Example:
- * ```kotlin
- * // Create the API client
- * val api = createTransiterApi(
- *     baseUrl = "https://demo.transiter.dev",
- *     enableLogging = true
- * )
- *
- * // Fetch all systems
- * api.getSystems()
- *     .onSuccess { systems -> println("Found ${systems.size} systems") }
- *     .onFailure { error -> println("Error: ${error.message}") }
- *
- * // Fetch routes for a specific system
- * api.getRoutes(systemId = "us-ny-nycsubway")
- *     .onSuccess { reply ->
- *         reply.routes.forEach { route ->
- *             println("Route: ${route.id}")
- *         }
- *     }
- *     .onFailure { error -> println("Error fetching routes: ${error.message}") }
- * ```
- *
- * @property client The Ktor HttpClient instance for making requests
- * @property baseUrl The base URL of the Transiter API instance (defaults to demo instance)
- */
 class TransiterApi(
     private val client: HttpClient,
     private val baseUrl: String = "https://demo.transiter.dev"
@@ -63,7 +29,7 @@ class TransiterApi(
      */
     suspend fun getSystems(): Result<List<System>, ApiError> = runSuspendCatching {
         client.get("$baseUrl/systems").body<List<System>>()
-    }.mapError { apiExceptionToError(it) }
+    }.mapError { exceptionToApiError(it) }
 
     /**
      * Fetches a transit system by ID.
@@ -77,7 +43,7 @@ class TransiterApi(
                 appendPathSegments("systems", systemId)
             }
         }.body<System>()
-    }.mapError { apiExceptionToError(it) }
+    }.mapError { exceptionToApiError(it) }
 
     // Agencies
     /**
@@ -92,7 +58,7 @@ class TransiterApi(
                 appendPathSegments("systems", systemId, "agencies")
             }
         }.body<List<Agency>>()
-    }.mapError { apiExceptionToError(it) }
+    }.mapError { exceptionToApiError(it) }
 
     /**
      * Fetches an agency by ID in a transit system.
@@ -110,7 +76,7 @@ class TransiterApi(
                 appendPathSegments("systems", systemId, "agencies", agencyId)
             }
         }.body<Agency>()
-    }.mapError { apiExceptionToError(it) }
+    }.mapError { exceptionToApiError(it) }
 
     // Stops
     /**
@@ -172,7 +138,7 @@ class TransiterApi(
                 longitude?.let { parameter("longitude", it) }
             }
         }.body<ListStopsReply>()
-    }.mapError { apiExceptionToError(it) }
+    }.mapError { exceptionToApiError(it) }
 
     /**
      * Fetches a stop by ID in a transit system.
@@ -202,7 +168,7 @@ class TransiterApi(
                 parameter("skip_transfers", skipTransfers)
             }
         }.body<Stop>()
-    }.mapError { apiExceptionToError(it) }
+    }.mapError { exceptionToApiError(it) }
 
     // Routes
     /**
@@ -228,7 +194,7 @@ class TransiterApi(
                 parameter("skip_alerts", skipAlerts)
             }
         }.body<ListRoutesReply>()
-    }.mapError { apiExceptionToError(it) }
+    }.mapError { exceptionToApiError(it) }
 
     /**
      * Fetches a route by ID in a transit system.
@@ -255,7 +221,7 @@ class TransiterApi(
                 parameter("skip_alerts", skipAlerts)
             }
         }.body<Route>()
-    }.mapError { apiExceptionToError(it) }
+    }.mapError { exceptionToApiError(it) }
 
     // Trips
 //    suspend fun getTrips(systemId: String): Result<Unit, ApiError> = runSuspendCatching {

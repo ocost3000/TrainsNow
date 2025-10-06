@@ -1,4 +1,4 @@
-package com.ocost.trainsnow.api
+package com.ocost.trainsnow.temp.core.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

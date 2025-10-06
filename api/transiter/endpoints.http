@@ -9,6 +9,10 @@ GET http://localhost:8080/systems/us-ca-caltrain/routes
 Content-Type: application/json
 
 ###
+GET http://localhost:8080/systems/us-ny-path/stops/794724
+Content-Type: application/json
+
+###
 GET http://localhost:8080/systems/us-ca-bart/routes/11
 Content-Type: application/json
 ###
@@ -16,5 +20,5 @@ GET http://localhost:8080/systems/us-ca-bart/agencies
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/systems/us-ny-subway/routes/1
+GET http://localhost:8080/systems/us-ny-subway/stops/101S
 Content-Type: application/json

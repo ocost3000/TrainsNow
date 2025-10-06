@@ -1,4 +1,4 @@
-package com.ocost.trainsnow.api
+package com.ocost.trainsnow.temp.core.api
 
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.RedirectResponseException
@@ -114,7 +114,7 @@ private fun ApiError.toThrowable(): Throwable = when (this) {
     is ApiError.Unknown -> cause
 }
 
-suspend fun apiExceptionToError(e: Throwable): ApiError =
+suspend fun exceptionToApiError(e: Throwable): ApiError =
     when (e) {
         is CancellationException -> throw e
         is ClientRequestException -> ApiError.HttpClient(
