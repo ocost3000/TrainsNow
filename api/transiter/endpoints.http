@@ -20,5 +20,5 @@ GET http://localhost:8080/systems/us-ca-bart/agencies
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/systems/us-ny-subway/stops/101S
+GET http://localhost:8080/systems/us-ny-subway/stops/132S
 Content-Type: application/json
