@@ -1,4 +1,4 @@
-package com.quicktrain.core.model.data
+package com.ocost.trainsnow.temp.core.data.model
 
 import kotlinx.serialization.Serializable
 
