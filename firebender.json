@@ -58,8 +58,7 @@
       "filePathMatches": "**/build.gradle.kts",
       "rules": [
         "Use version catalog (gradle/libs.versions.toml) for all dependency versions",
-        "Maintain clean platform boundaries in build configuration",
-        "Include detekt with detekt-formatting plugin for static analysis"
+        "Maintain clean platform boundaries in build configuration"
       ]
     },
     {
@@ -67,6 +66,8 @@
       "rules": [
         "Central location for all dependency and plugin versions",
         "Keep versions organized and up to date",
+        "If no version is provided, set to latest stable release",
+        "All keys should be sorted in alphabetical order",
         "Ensure compatibility across multiplatform targets"
       ]
     },
